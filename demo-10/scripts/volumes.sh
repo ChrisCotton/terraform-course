@@ -2,10 +2,10 @@
 
 set -ex 
 
-vgchange -ay
+vgchange -ay # refresh lvm state if the ebs volun=me already exists and has a filesystem on it 
 
-DEVICE_FS=`blkid -o value -s TYPE ${DEVICE} || echo ""`
-if [ "`echo -n $DEVICE_FS`" == "" ] ; then 
+DEVICE_FS=`blkid -o value -s TYPE ${DEVICE} || echo ""` 
+if [ "`echo -n $DEVICE_FS`" == "" ] ; then # if no filesystem then you need to create and format a linux volume
   # wait for the device to be attached
   DEVICENAME=`echo "${DEVICE}" | awk -F '/' '{print $3}'`
   DEVICEEXISTS=''
@@ -18,11 +18,11 @@ if [ "`echo -n $DEVICE_FS`" == "" ] ; then
   done
   pvcreate ${DEVICE}
   vgcreate data ${DEVICE}
-  lvcreate --name volume1 -l 100%FREE data
-  mkfs.ext4 /dev/data/volume1
+  lvcreate --name volume1 -l 100%FREE data  
+  mkfs.ext4 /dev/data/volume1 
 fi
-mkdir -p /data
-echo '/dev/data/volume1 /data ext4 defaults 0 0' >> /etc/fstab
+mkdir -p /data 
+echo '/dev/data/volume1 /data ext4 defaults 0 0' >> /etc/fstab 
 mount /data
 
 # install docker
