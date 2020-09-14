@@ -2,8 +2,8 @@
 
 ################################################################################
 #                                                                              #
-#   NAT is useful if you need private instances to access inet but not the     #
-#   other way around vpc = true                                                #
+#   NAT is useful if you need instances on private subnets to access pub inet  #
+#   but not the other way around vpc = true                                    #
 #                                                                              #
 ################################################################################
 

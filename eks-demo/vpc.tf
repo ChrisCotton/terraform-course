@@ -13,7 +13,7 @@ module "vpc" {
   enable_vpn_gateway = false
 
   tags = {
-    "Name"                                      = "terraform-eks-demo-node"
+    "Name"                                      = "${var.cluster-name}-node"
     "kubernetes.io/cluster/${var.cluster-name}" = "shared"
   }
 }

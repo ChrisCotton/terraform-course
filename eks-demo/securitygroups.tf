@@ -11,7 +11,8 @@ resource "aws_security_group" "demo-cluster" {
   }
 
   tags = {
-    Name = "terraform-eks-demo"
+    # Name = "terraform-eks-demo"
+    Name = var.cluster-name
   }
 }
 
